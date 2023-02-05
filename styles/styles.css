@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.wrapper{
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Initial search page  */
+
+.wrapper #home-page{
+    /* display: none; */
+    /* background-color: pink; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-name{
+    height: 50px;
+    margin-right: 5px;
+    padding: 10px;
+    text-align: center;
+    transition: 0.5s;
+    border-radius:5px;
+    width: 200px;
+    font-size: 1.3rem;
+}
+
+#home-page .search-name-main{
+    width: 300px;
+}
+
+.search-name:focus{
+    outline: none;
+    border: 5px #FFBD44 solid;
+}
+
+.wrapper .btn{
+    background-color: #FFBD44;
+    color: black;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.wrapper .btn:hover{
+    background-color: black;
+    color: #FFBD44;
+}
+
+/* Page after search */
+
+#result-page{
+    display: none;
+    min-height: 100vh;
+    /* background-color: rgb(104, 28, 14); */
+    /* display: flex; */
+    flex-direction: column;
+    color: white;
+}
+
+#result-page .search-bar{
+    padding: 5px;
+    display: flex;
+    justify-content: right;
+    /* background-color: pink; */
+}
+
+.search-query{
+    margin: 40px;
+    text-align: center;
+}
+
+.query-text{
+    color: #FFBD44;
+}
+
+.result-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10px;
+}
+
+.image{
+    height: 300px;
+    width: 250px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.wrapper .grid-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hero-name{
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero-name:hover{
+    color: #FFBD44;
+}
+
+.power-level{
+    height: 300px;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item .power-attrib{
+    display: grid;
+    grid-template-columns: 0.4fr 1fr 0.3fr;
+    /* gap: 10px; */
+    margin-top: 10px;
+}
+
+.power-attrib .progress{
+    margin-right: 5px;
+    border-radius: 10px;
+    height: 10px;
+    background-color: #FFBD44;
+}
+
+.power-attrib .attrib-value{
+    display: flex;
+    align-items: center;
+}
+
+.wrapper .return-btn{
+    display: none;
+    width: 100px;
+    font-size: 1.2rem;
+}
