@@ -101,8 +101,8 @@ function showResults() {
         }).catch(err => {
             loading.style.color = 'tomato';
             loading.innerText = 'Hero not found';
+            returnBtn.style.display = 'flex';
         });
-        console.log(supData);
         queryText.innerText = searchVal;
         homePage.style.display = 'none';
         resultPage.style.display = 'flex';
@@ -125,7 +125,6 @@ const getData = async (resource) => {
 function detail(cardId) {
     resultPage.style.display = 'none';
     mainContainer.style.display = 'grid';
-    console.log(supData[cardId]);
     const elem = document.getElementById(`${cardId}-pLevel`);
     let img = document.createElement('img');
     let h2 = document.createElement('h2');
@@ -149,7 +148,6 @@ function detail(cardId) {
             let aName = document.createElement('div');
             aName.innerText = `${Object.keys(supData[cardId][featHeadings[i]])[j]}: `;
             aName.innerText = aName.innerText.charAt(0).toUpperCase() + aName.innerText.slice(1);
-            console.log(Object.keys(supData[cardId][featHeadings[i]])[j]);
             let feat = document.createElement('span');
             feat.classList.add('feature');
             feat.innerText = Object.values(supData[cardId][featHeadings[i]])[j];

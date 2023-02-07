@@ -167,6 +167,10 @@ body{
 
 /* Hero display page */
 
+.loading{
+    margin-bottom: 3%;
+}
+
 #hero-display .main-container{
     margin: 2%;
     min-height: 100vh;
