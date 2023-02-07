@@ -27,8 +27,6 @@ body{
 /* Initial search page  */
 
 .wrapper #home-page{
-    /* display: none; */
-    /* background-color: pink; */
     height: 100vh;
     width: 100%;
     display: flex;
@@ -184,7 +182,6 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
 }
 
 .main-container img{
