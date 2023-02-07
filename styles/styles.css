@@ -6,6 +6,7 @@
     
 }
 
+
 body{
     min-height: 100vh;
     display: flex;
@@ -17,6 +18,10 @@ body{
 .wrapper{
     width: 100%;
     min-height: 100vh;
+}
+
+.wrapper .m-50-top{
+    margin-top: 50px;
 }
 
 /* Initial search page  */
@@ -121,6 +126,7 @@ body{
     margin-top: 10px;
     cursor: pointer;
     transition: 0.3s;
+    color: white;
 }
 
 .hero-name:hover{
@@ -157,4 +163,93 @@ body{
     display: none;
     width: 100px;
     font-size: 1.2rem;
+}
+
+/* Hero display page */
+
+#hero-display .main-container{
+    margin: 2%;
+    min-height: 100vh;
+    display: none;
+    grid-template-columns: 0.5fr 1fr;
+    justify-items: center;
+    column-gap: 2%;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.main-container img{
+    object-fit: cover;
+    object-position: center;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin-top: 3%;
+}
+
+.left-container{
+    background-color: rgb(25, 25, 25);
+    width: 100%;
+    height: 60vh;
+    position: sticky;
+    top: 20%;
+    color: white;
+    bottom: 50%;
+    border-radius: 10px;
+}
+
+.right-container{
+    background-color: rgb(25, 25, 25);
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    padding-bottom: 50px;
+    border-radius: 10px;
+    padding-right: 4%;
+    text-align: justify;
+}
+
+.feature-heading{
+    color: white;
+}
+
+.feature-heading::after{
+    content: '';
+    height: 3px;
+    width: 100%;
+    background: #FFBD44;
+    display: block;
+    border-radius: 10px;
+}
+
+.main-container .detailed-attrib{
+    color: #FFBD44;
+    align-self: flex-start;
+    margin-top: 20px;
+    margin-left: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feature{
+    color: white;
+}
+
+.fa-circle-left{
+    color: white;
+    position: absolute;
+    font-size: 4rem;
+    left: 3%;
+    top: -25%;
+    cursor: pointer;
+}
+
+.fa-circle-left:hover{
+    color: #FFBD44;
 }
