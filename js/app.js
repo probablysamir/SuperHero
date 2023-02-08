@@ -43,6 +43,7 @@ function showResults() {
         const resource = `https://superheroapi.com/api.php/727054372039115/search/${searchVal}`;
         getData(resource).then(data => {
             let count = 0;
+            supData=[];
             data.results.forEach(variab => {
                 //Displays the character's image, name and attributes
                 supData.push(variab);
