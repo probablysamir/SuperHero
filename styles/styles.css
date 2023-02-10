@@ -32,6 +32,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.8) url(../images/wallpaper.jpg) no-repeat center;
+    background-blend-mode: darken;
 }
 
 .search-name{
