@@ -1,6 +1,6 @@
 //Initializing variables
 const searchName = document.querySelector('#search-name-main');
-const searchNameT = document.querySelector('#searchNameT');
+const searchNameT = document.querySelector('#search-name-top');
 const searchBtn = document.querySelectorAll('.search-btn');
 const queryText = document.querySelector('.query-text');
 const homePage = document.querySelector('#home-page');
@@ -12,9 +12,9 @@ const loading = document.querySelector('.loading');
 const leftContainer = document.querySelector('.left-container');
 const rightContainer = document.querySelector('.right-container');
 const mainContainer = document.querySelector('.main-container');
+const searchList = document.querySelector('.search-list');
 let searchVal = '';
-let supData = [];
-let featHeadings = ['appearance', 'biography', 'connections', 'work']
+let featHeadings = ['appearance', 'biography', 'connections', 'work'];
 
 //Adding Event Listeners
 searchBtn.forEach(e => {
@@ -23,16 +23,21 @@ searchBtn.forEach(e => {
 searchName.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) showResults();
 });
+searchNameT.addEventListener('keyup', (e) => {
+    if (e.keyCode === 13) showResults();
+    else addListData(e.target.value);
+});
 
 //The return home button
 returnBtn.addEventListener('click', () => {
     resultPage.style.display = 'none';
     homePage.style.display = 'flex';
     resultGrid.replaceChildren();
-})
+});
 
 //Shows the full searches
 function showResults() {
+    searchList.replaceChildren();
     loading.style.color = 'white';
     loading.innerText = 'Loading...';
     resultGrid.replaceChildren();
@@ -43,7 +48,7 @@ function showResults() {
         const resource = `https://superheroapi.com/api.php/727054372039115/search/${searchVal}`;
         getData(resource).then(data => {
             let count = 0;
-            supData=[];
+            let supData = [];
             data.results.forEach(variab => {
                 //Displays the character's image, name and attributes
                 supData.push(variab);
@@ -76,7 +81,7 @@ function showResults() {
                     pAttrib.append(cAttrib);
                     pLevel.append(pAttrib);
                 }
-                pLevel.setAttribute('id', `${count}-pLevel`)
+                pLevel.setAttribute('id', `${count}-pLevel`);
                 img.src = variab.image.url;
                 img.classList.add('image');
                 grItem.append(img);
@@ -96,8 +101,8 @@ function showResults() {
                 cardPLevel = e.querySelector('.power-level');
                 cardImage = e.querySelector('.image');
                 cardName = e.querySelector('.hero-name');
-                cardImage.addEventListener('click', () => detail(cardId));
-                cardName.addEventListener('click', () => detail(cardId));
+                cardImage.addEventListener('click', () => detail(cardId, supData));
+                cardName.addEventListener('click', () => detail(cardId, supData));
             });
         }).catch(err => {
             loading.style.color = 'tomato';
@@ -113,6 +118,63 @@ function showResults() {
         });
     }
 }
+//Adds the hero list while typing in the top bar
+function addListData(searchVal) {
+    const resource = `https://superheroapi.com/api.php/727054372039115/search/${searchVal}`;
+    getData(resource).then((data) => {
+        let supData = [];
+        searchList.replaceChildren();
+        let index = data.results.length > 5 ? 5 : data.results.length;
+        let h2 = document.createElement('h2');
+        let pLevel = document.createElement('div');
+        let img = document.createElement('img');
+        let grItem = document.createElement('div');
+        for (let i = 0; i < index; i++) {
+            let pAttrib = document.createElement('div');
+            pAttrib.classList.add('power-attrib');
+            pAttrib.classList.add('grid-item');
+            let cName = document.createElement('span');
+            let cAttrib = document.createElement('div');
+            let cProg = document.createElement('div');
+            let cPower = document.createElement('span');
+            cProg.classList.add('progress');
+            cAttrib.classList.add('attrib-value');
+            cName.innerText = Object.keys(data.results[i].powerstats)[i];
+            cProg.style.width = `${Object.values(data.results[i].powerstats)[i]}%`;
+            cPower.innerText = Object.values(data.results[i].powerstats)[i];
+            cName.innerText = cName.innerText.charAt(0).toUpperCase() + cName.innerText.slice(1);
+            if (cPower.innerText == 'null') cPower.innerText = "N/A";
+            pLevel.classList.add('power-level');
+            h2.innerText = data.results[i].name;
+            grItem.classList.add('grid-item');
+            h2.classList.add('hero-name');
+            pAttrib.append(cName);
+            cAttrib.append(cProg);
+            cAttrib.append(cPower);
+            pAttrib.append(cAttrib);
+            pLevel.append(pAttrib);
+            supData.push(data.results[i]);
+            let li = document.createElement('li');
+            li.classList.add('list-box');
+            let img = document.createElement('img');
+            let span = document.createElement('span');
+            span.classList.add('list-hero-name');
+            console.log(data.results[i]);
+            img.classList.add('list-image');
+            img.src = data.results[i].image.url;
+            span.innerText = data.results[i].name;
+            li.setAttribute('id', i);
+            li.append(img);
+            li.append(span);
+            searchList.append(li);
+            pLevel.setAttribute('id', `${i}-pLevel`);
+        }
+        const lBox = document.querySelectorAll('.list-box');
+        lBox.forEach(e => {
+            e.addEventListener('click', () => detail(e.id, supData));
+        });
+    });
+}
 
 //Asynchronous function to fetch the data
 
@@ -120,19 +182,22 @@ const getData = async (resource) => {
     const response = await fetch(resource);
     const data = await response.json();
     return data;
-}
+};
 
 //Function to show the detailed description of the character
-function detail(cardId) {
+function detail(cardId, supData) {
+    searchList.replaceChildren();
+    searchNameT.value='';
     resultPage.style.display = 'none';
     mainContainer.style.display = 'grid';
     const elem = document.getElementById(`${cardId}-pLevel`);
+    console.log(elem);
     let img = document.createElement('img');
     let h2 = document.createElement('h2');
     h2.innerText = supData[cardId].name;
     img.src = supData[cardId].image.url;
     const i = document.createElement('i');
-    i.classList.add('fa-solid','fa-circle-left', 'back-btn');
+    i.classList.add('fa-solid', 'fa-circle-left', 'back-btn');
     leftContainer.append(i);
     leftContainer.append(img);
     leftContainer.append(h2);
@@ -158,10 +223,10 @@ function detail(cardId) {
         rightContainer.append(dAttrib);
     }
     const backBtn = document.querySelector('.back-btn');
-    backBtn.addEventListener('click',()=>{
+    backBtn.addEventListener('click', () => {
         resultPage.style.display = 'flex';
         mainContainer.style.display = 'none';
         leftContainer.replaceChildren();
         rightContainer.replaceChildren();
-    })
+    });
 }
